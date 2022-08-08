@@ -45,3 +45,67 @@ fadeEls.forEach(function (fadeEl, index) {
     opacity: 1,
   });
 });
+
+// 공지사항
+new Swiper('.notice-line .swiper', {
+  direction: 'vertical',
+  autoplay: true,
+  loop: true
+});
+
+new Swiper('.promotion .swiper', {
+  slidesPerView: 3,
+  spaceBetween: 10,
+  centeredSlides: true,
+  loop: true,
+  autoplay: {
+    delay: 5000
+  },
+
+  pagination: {
+    el: '.promotion .swiper-pagination',  //페이지 번호 요소 선택자
+    clickable: true // 사용자의 페이지 번호 요소 제어
+  },
+
+  navigation: {
+    prevEl: '.promotion .swiper-prev',
+    nextEl: '.promotion .swiper-next'
+  }
+});
+
+// 프로모션 열고 닫기
+const promotionEl = document.querySelector('.promotion');
+const promotionToggleBtn = document.querySelector('.toggle-promotion');
+let isHidePromotion = false;
+promotionToggleBtn.addEventListener('click', function () {
+  isHidePromotion = !isHidePromotion
+  if (isHidePromotion) {
+    promotionEl.classList.add('hide');
+  } else {
+    promotionEl.classList.remove('hide');
+  }
+});
+
+function random(min, max) {
+  // `.toFixed()`를 통해 반환된 문자 데이터를,
+  // `parseFloat()`을 통해 소수점을 가지는 숫자 데이터로 변환
+  return parseFloat((Math.random() * (max - min) + min).toFixed(2))
+}
+
+// 그림 둥둥 띄우기
+function floatingObject(selector, delay, size) {
+  gsap.to(
+    selector,
+    random(1.5, 2.5),
+    {
+      y: size,
+      repeat: -1,
+      yoyo: true,
+      ease: Power1.easeInOut,
+      delay: random(0, delay)
+    }
+  );
+}
+floatingObject('.floating1', 1, 15);
+floatingObject('.floating2', .5, 15);
+floatingObject('.floating3', 1.5, 20);
